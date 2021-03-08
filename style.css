@@ -4,17 +4,17 @@
   
   /* Color scheme */
   
-  --textcolor: #3a506b;
-  --bgcolor: #f6fff8;
-  --highlight: #ed6a5e;
+  --textcolor: #21272c;
+  --bgcolor: #fefffe;
+  --highlight: #e7131a;
 
 }
 
 @media (prefers-color-scheme: dark) {
   * {
-    --textcolor: #d8e9e2;
-    --bgcolor: #181e24;
-    --highlight: #9bdac6;
+    --textcolor: #f5f5f5;
+    --bgcolor: #1e1e1e;
+    --highlight: #fe5247;
   }
 }
 
