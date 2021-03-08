@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Zilla+Slab:ital,wght@0,500;1,500&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box;
   
@@ -20,7 +20,7 @@
 
 body {
   font-size: 18px;
-  font-family: "Crimson Text",system-ui, sans-serif;
+  font-family: 'IBM Plex Serif',system-ui, serif;
   line-height: 1.4;
   color: var(--textcolor);
   background: var(--bgcolor);
@@ -66,6 +66,7 @@ header h1 {
   flex: 1; /* pushes nav to the right */
   white-space: nowrap;
   padding: 0 5vw .5em 0;
+  font-family: 'Zilla Slab', serif;
 }
 
 nav a:not(:last-of-type) {
