@@ -1,606 +1,348 @@
-<!-- JOHN DOE’S PAGE - https://github.com/cadars/john-doe/ -->
-
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Start</title>
+    <style>
+        :root {
+            /* Catppuccin Mocha Palette */
+            --bg-color: #1e1e2e;          /* Base */
+            --card-bg: #252538;           /* Mantle */
+            --input-bg: #181825;          /* Crust */
+            --text-color: #cdd6f4;        /* Text */
+            --accent-color: #a6adc8;      /* Subtext0 */
+            --border-color: #313244;      /* Surface0 */
+            --hover-bg: #45475a;          /* Surface1 */
+            
+            /* Core Brand Colors (Catppuccin Flavors) */
+            --c-green: #a6e3a1;
+            --c-blue: #89b4fa;
+            --c-pink: #f5c2e7;
+            --c-lavender: #b4befe;
+            --c-red: #f38ba8;
+            --c-sapphire: #74c7ec;
+            --c-mauve: #cba6f7;
+            --c-peach: #fab387;
+            --c-maroon: #eba0ac;
+            --c-yellow: #f9e2af;
+        }
 
-		<title>Harvey Lin</title>
-		<meta name="description" content="Site description" />
+        @media (prefers-color-scheme: light) {
+            :root {
+                /* Catppuccin Latte Palette */
+                --bg-color: #eff1f5;      /* Base */
+                --card-bg: #e6e9ef;       /* Mantle */
+                --input-bg: #dce0e8;      /* Crust */
+                --text-color: #4c4f69;    /* Text */
+                --accent-color: #6c6f85;  /* Subtext0 */
+                --border-color: #ccd0da;  /* Surface0 */
+                --hover-bg: #acb0be;      /* Surface1 */
+            }
+        }
 
-		<!-- Recommended minimum -->
-		<meta property="og:title" content="Site title" />
-		<meta property="og:description" content="Site description" />
-		<meta property="og:image" content="img/site-image.jpg" />
-		<meta name="twitter:card" content="summary_large_image" />
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-		<!-- You could also inline the stylesheet -->
-		<link rel="stylesheet" href="style.css" />
-		<link href="https://fonts.googleapis.com/css?family=Oxygen:300,700" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/styleResume.css">
-	</head>
-	</head>
-	<body>
-		<header>
-			<h1>
-				<a href="#home">Harvey Lin</a>
-			</h1>
-			<nav>
-				<!-- <a href="#about">About</a> -->
-				<a href="#review">Reviews</a> 
-				<!-- <a href="#photos">Photos</a> -->
-				<!-- <a href="#portfolio">Portfolio</a> -->
-				<a href="#resume">Resume</a>
-			</nav>
-		</header>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            
+            /* 绝对居中引擎 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* 完美的弹性留边机制，融合全面屏安全区 */
+            min-height: 100vh;
+            padding: calc(40px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));
+            
+            transition: background-color 0.2s, color 0.2s;
+        }
 
-		<main>
-			<section id="home">
-				<!-- HOME -->
+        .container {
+            width: 100%;
+            max-width: 620px; /* 进一步收紧宽度，增强视觉凝聚力 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            /* 确保在大屏幕下不会顶天立地，维持四周的高级留白感 */
+            margin: auto 0; 
+        }
 
-				<p>Welcome to my digital library.</p>
-			</section>
+        #time {
+            font-size: 3.8rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: var(--text-color);
+            user-select: none;
+            opacity: 0.95;
+        }
 
-			<section id="about">
-				<!-- ABOUT -->
+        .search-box {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            align-items: center;
+            background-color: var(--input-bg);
+            border-radius: 14px;
+            padding: 2px;
+            border: 1px solid var(--border-color);
+        }
 
-				<p>
-					This is the about page.
-					<a href="#another-page">This is a link to another page</a>.
-				</p>
+        .search-select {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            padding: 0 16px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            height: 44px;
+            -webkit-appearance: none;
+        }
 
-				<figure>
-					<a href="#img-about">
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/1200x600/ddd/bbb"
-							width="1200"
-							height="600"
-						/>
-					</a>
-					<figcaption>
-						Example of an image with a link to a larger version.
-					</figcaption>
-				</figure>
-			</section>
+        .search-input {
+            flex: 1;
+            height: 44px;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: inherit;
+            padding: 0 14px;
+            -webkit-appearance: none;
+        }
 
-			<section id="review">
-				<!-- REVIEWS -->
+        /* 响应式精简网格 */
+        .links-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
 
-				<article>
-					<h2>
-						Raya and the Last Dragon
-						<time datetime="2021-03-07">Mar 07, 2021</time>
-					</h2>
+        .link-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 6px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-color);
+            background-color: var(--card-bg);
+            transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.12s ease;
+            cursor: pointer;
+            touch-action: manipulation;
+            border: 1px solid var(--border-color);
+        }
 
-					<p><a>4/5</a> 🌟🌟🌟🌟</p>
-					<p>
-						<em>This review may contain spoilers.</em>
-					</p>
-					<figure>
-						<img
-							loading="lazy"
-							alt=""
-							src="https://is1-ssl.mzstatic.com/image/thumb/RdQ_1PhYwEWd9_NiuBMAsw/1200x675mf.jpg"
-							width="720"
-							height="500"
-						/>
-						<figcaption>Walt Disney Animation Studios</figcaption>
-					</figure>
-					<p>
-						If any movie that can make me shed tears is a win in my
-						book. I don’t know why it took me this long to wait for
-						<a
-							href="https://movies.disney.com/raya-and-the-last-dragon"
-							target="_blank"
-							rel="noopener"
-							title="Raya and the Last Dragon"
-							>Raya and the Last Dragon</a
-						>, this movie’s culture shaping of Southeast Asia is
-						really impressive. The technology of facial expression
-						makes little <em>Raya</em> looks so adorable, eyes
-						popping and vibrant spectacle. The villain character
-						<em>Namaari</em> no longer acts like kind of stereotype
-						villain, she and <em>Raya</em> are two sides of the same
-						coin.
-					</p>
-					<p>
-						But a good movie isn’t only a collection of dazzling
-						details. In the past Disney Princess Series, a good
-						story always live with a reasonable character arc. The
-						theme of this movie is Trust, but little Raya acts like
-						a tourist, hopscotch from kingdom to kingdom in search
-						of pieces of a dragon gem and keep talking don’t trust
-						anyone. It seems a little empty and irrelevant because
-						we cannot feel the heroine’s growing. And the most
-						important part is why the filmmakers do not give
-						<em>Raya</em> a chance to have sing-along songs, I mean
-						without song and dance that really a pity.
-					</p>
-					<iframe
-						allow="autoplay *; encrypted-media *; fullscreen *"
-						frameborder="0"
-						height="320"
-						style="
-							width: 100%;
-							max-width: 660px;
-							overflow: hidden;
-							background: transparent;
-						"
-						sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-						src="https://embed.music.apple.com/cn/album/raya-last-dragon-original-motion-picture-soundtrack/1554017036"
-					></iframe>
-				</article>
+        .link-item:hover, .link-item:active {
+            background-color: var(--hover-bg);
+            transform: scale(0.95);
+        }
 
-				<article>
-					<h2>
-						<a href="https://example.com">Why Your Cat Bites You</a>
-						<time datetime="2004-12-12">12.12.2004</time>
-					</h2>
-					<p>Honestly you don't want to know.</p>
-				</article>
-			</section>
+        .icon-wrapper {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #1e1e2e; /* 浅色图标文字，在有色块上对比清晰 */
+        }
+        
+        /* 浅色模式下弱化图标内字的亮度 */
+        @media (prefers-color-scheme: light) {
+            .icon-wrapper {
+                color: #eff1f5;
+            }
+        }
 
-			<section id="photos">
-				<!-- PHOTOS -->
+        .link-title {
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            opacity: 0.8;
+        }
 
-				<p>An example of a photo gallery with a lightbox.</p>
+        /* 高性能 CSS Grid 折叠架构 */
+        .more-links-container {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
 
-				<!-- You can use this grid of images in any page -->
+        .more-links-container.expanded {
+            grid-template-rows: 1fr;
+        }
 
-				<div class="grid">
-					<a href="#img-01"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x300/ddd/bbb"
-					/></a>
-					<a href="#img-02"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/400x300/ddd/bbb"
-					/></a>
-					<a href="#img-03"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x400/ddd/bbb"
-					/></a>
-					<a href="#img-04"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x300/ddd/bbb"
-					/></a>
-					<a href="#img-05"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/400x300/ddd/bbb"
-					/></a>
-					<a href="#img-06"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x400/ddd/bbb"
-					/></a>
-					<a href="#img-07"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x300/ddd/bbb"
-					/></a>
-					<a href="#img-08"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/400x300/ddd/bbb"
-					/></a>
-					<a href="#img-09"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x400/ddd/bbb"
-					/></a>
-					<a href="#img-10"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x300/ddd/bbb"
-					/></a>
-					<a href="#img-11"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/400x300/ddd/bbb"
-					/></a>
-					<a href="#img-12"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x400/ddd/bbb"
-					/></a>
-					<a href="#img-13"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x300/ddd/bbb"
-					/></a>
-					<a href="#img-14"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/400x300/ddd/bbb"
-					/></a>
-					<a href="#img-15"
-						><img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/300x400/ddd/bbb"
-					/></a>
-				</div>
-			</section>
+        .more-links-inner {
+            min-height: 0;
+        }
 
-			<section id="portfolio">
-				<!-- PORTFOLIO -->
+        .toggle-btn {
+            width: 100%;
+            max-width: 140px;
+            padding: 10px;
+            margin: 8px auto 0 auto;
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            outline: none;
+            touch-action: manipulation;
+        }
 
-				<div class="slides">
-					<figure>
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/4000x3000/ddd/bbb"
-						/>
-					</figure>
-					<figure>
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/3000x4000/ddd/bbb"
-						/>
-					</figure>
-					<figure>
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/4000x3000/ddd/bbb"
-						/>
-					</figure>
-					<figure>
-						<p>You could also have text over here…</p>
-					</figure>
-					<figure>
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/1000x1000/ddd/bbb"
-						/>
-						<figcaption>…or image captions</figcaption>
-					</figure>
-					<figure style="background: #fdcb39">
-						<img
-							loading="lazy"
-							alt=""
-							src="//dummyimage.com/3000x4000/ddd/bbb"
-						/>
-						<figcaption>add a solid background</figcaption>
-					</figure>
-					<figure class="cover">
-						<img
-							loading="lazy"
-							alt=""
-							src="https://64.media.tumblr.com/7904066936b9324571738bbbeeb082e9/tumblr_myopxy8uJI1qz4vi0o1_1280.jpg"
-						/>
-						<p style="color: #fff">or go full bleed</p>
-					</figure>
-				</div>
-			</section>
+        .toggle-icon {
+            width: 10px;
+            height: 10px;
+            fill: currentColor;
+            transition: transform 0.2s ease;
+        }
 
-			<section id="another-page">
-				<!-- ANOTHER PAGE -->
+        .expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
 
-				<p>This page is not referenced in the menu, yet it exists.</p>
-				<p><a href="#about">← back</a></p>
-			</section>
-			<section id="resume">
-				<div class="container resumeContainer">
-					<div class="row">
-						<div class="col-md-6">
-							<p class="resumeName">林晓鹏</p>
-							<p class="resumeJob">UI 设计师 / User Interface Designer</p>
-						</div>
-						<div class="col-md-6" style="margin-top: 128px">
-							<div><img src="icon/dribbble.svg" class="resumeIconContact">
-								<a href="http://dribbble.com/linxiaopeng">
-									<p class="resumeContact">dribbble.com/linxiaopeng</a>
-								</p>
-							</div>
-							<div><img src="icon/phone.svg" class="resumeIconContact">
-								<p class="resumeContact">180-5053-6193</p>
-							</div>
-							<div><img src="icon/mail.svg" class="resumeIconContact">
-								<a href="mailto: linxiaopeng.my@gmail.com">
-									<p class="resumeContact">linxiaopeng.my@gmail.com</a>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 36px">
-						<div class="col-md-6">
-							<div>
-								<p class="resumeH2Left">工作经历</p>
-								<div class="resumeLineLeft"></div>
-								<p class="resumeH1Left text-uppercase">experience</p>
-								<div>
-									<p class="resumePosition">UI 设计师</p>
-									<p class="resumeCompany">上海宠艾网络科技</p>
-								</div>
-								<p class="resumeTime">2016.07 至今</p>
-								<ul class="row">
-									<div class="resumeExperience col-md-10">
-										<li>运用 Sketch 制作 iOS 的引导页面、图标设计和界面视觉效果图</li>
-										<li>运用 Principle 制作交互动效，如点赞等，并与开发人员协作完成</li>
-										<li>企业级 PC 端后台管理的流程界面设计</li>
-										<li>维护 iOS 的设计规范文档</li>
-									</div>
-								</ul>
-							</div>
-							<div style="height: 18px"></div>
-							<div>
-								<div>
-									<p class="resumePosition">视觉设计实习</p>
-									<p class="resumeCompany">厦门联想移动通信公司</p>
-								</div>
-								<p class="resumeTime">2016.01 至 2016.06</p>
-								<ul class="row">
-									<div class="resumeExperience col-md-10">
-										<li>运用 After Eﬀects 和 Illustrator 等工具制作多种不同风格的 HTML5 页面和 GIF 动画，在微信平台单篇最高累计获得 7000+ 的阅读量</li>
-										<li>负责公司日常运营的图片素材制作，并能在例会中提出重要建议</li>
-									</div>
-								</ul>
-							</div>
-							<div class="resumeSpace"></div>
-							<div>
-								<p class="resumeH2Left">项目经历</p>
-								<div class="resumeLineLeft"></div>
-								<p class="resumeH1Left text-uppercase">projects</p>
-								<div>
-									<p class="resumePosition">淘宠宝 iOS 客户端</p>
-									<p class="resumeCompany"></p>
-								</div>
-								<p class="resumeTime">2016.07 至今</p>
-								<ul class="row">
-									<div class="resumeExperience col-md-10">
-										<li>在职公司的官方 App，在项目中制作 App 的引导页面、图标设计和界面视觉效果</li>
-										<li>制作维护 iOS 平台的控件</li>
-									</div>
-								</ul>
-							</div>
-							<div style="height: 18px"></div>
-							<div>
-								<div>
-									<p class="resumePosition">淘宠宝 Web 商城和后台管理</p>
-									<p class="resumeCompany"></p>
-								</div>
-								<p class="resumeTime">2016.07 至今</p>
-								<ul class="row">
-									<div class="resumeExperience col-md-10">
-										<li>在职公司的 Web 端商城和后台管理系统，在项目中制作网页的图标设计和界面视觉效果</li>
-									</div>
-								</ul>
-							</div>
-							<div style="height: 18px"></div>
-							<div>
-								<div>
-									<p class="resumePosition">Miror.</p>
-									<p class="resumeCompany"></p>
-								</div>
-								<p class="resumeTime">2016.12 至 2017.02</p>
-								<ul class="row">
-									<div class="resumeExperience col-md-10">
-										<li>与朋友共同开发的业余项目，是一款流媒体在线直播的 App，在项目中负责交互线稿和界面视觉效果</li>
-									</div>
-								</ul>
-							</div>
-							<div class="resumeSpace"></div>
-						</div>
-						<div class="col-md-6">
-							<div>
-								<p class="resumeH2Right">教育经历</p>
-								<div class="resumeLineRight"></div>
-								<p class="resumeH1Right text-uppercase">education</p>
-								<div>
-									<p class="resumePositionRight">电子商务</p>
-									<p class="resumeCompanyRight">四川外国语大学</p>
-								</div>
-								<p class="resumeTimeRight">2016.07 至今</p>
-								<ul class="row">
-									<div class="resumeExperienceRight col-md-10">
-									</div>
-								</ul>
-							</div>
-							<div class="resumeSpace"></div>
-							<div>
-								<p class="resumeH2Right">掌握技能</p>
-								<div class="resumeLineRight"></div>
-								<p class="resumeH1Right text-uppercase">skills</p>
-								<div>
-									<p class="resumePositionRight">设计工具</p>
-									<p class="resumeCompanyRight"></p>
-								</div>
-								<p class="resumeTimeRight">Tools & Methods</p>
-								<ul class="row">
-									<div class="resumeExperienceRight col-md-10">
-										<li>熟悉 Sketch 的使用，制作图标设计和界面效果图，使用各种第三方自动化插件</li>
-										<li>运用 Principle 制作交互动效，如点赞等，并与开发人员协作完成</li>
-										<li>熟悉 Photoshop 和 Illustrator 的使用，制作不同流行风格插画和界面图标</li>
-										<li>熟悉 MindNode 等思维导图工具的使用，梳理产品交互流程</li>
-									</div>
-								</ul>
-							</div>
-							<div style="height: 18px"></div>
-							<div>
-								<div>
-									<p class="resumePositionRight">其他技能</p>
-									<p class="resumeCompanyRight"></p>
-								</div>
-								<p class="resumeTimeRight">Other Skills</p>
-								<ul class="row">
-									<div class="resumeExperienceRight col-md-10">
-										<li>熟悉 Google Search 的使用，能独立解决工作上的大部分问题</li>
-										<li>熟悉 macOS 的使用，爱好研究 App Store 和 Google Play 上的各种优秀应用</li>
-										<li>熟悉 Microsoft PowerPoint & Word 的使用和制作</li>
-										<li>了解 Android Studio 中 XML 的 UI 布局设计</li>
-									</div>
-								</ul>
-							</div>
-							<div class="resumeSpace"></div>
-							<div>
-								<p class="resumeH2Right">兴趣爱好</p>
-								<div class="resumeLineRight"></div>
-								<p class="resumeH1Right text-uppercase">interests</p>
-								<div>
-									<ul class="list">
-										<li style="margin-left: 48px;">
-											<img src="icon/cd.svg">
-											<center class="resumePictureContex">音乐</center>
-										</li>
-										<li>
-											<img src="icon/book.svg">
-											<center class="resumePictureContex">出版物</center>
-										</li>
-										<li>
-											<img src="icon/movie.svg">
-											<center class="resumePictureContex">电影</center>
-										</li>
-										<li>
-											<img src="icon/code.svg">
-											<center class="resumePictureContex">代码</center>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div style="height: 72px"></div>
-			</section>
-		</main>
+    <div class="container">
+        <div id="time">00:00</div>
 
-		<!-- ----------
-    LIGHTBOX IMAGES
-    ----------- -->
+        <div class="search-box">
+            <select class="search-select" id="engineSelect">
+                <option value="https://www.google.com/search?q=">Ggl</option>
+                <option value="https://www.bing.com/search?q=">Bng</option>
+                <option value="https://www.baidu.com/s?wd=">Bdu</option>
+            </select>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search..." autocomplete="off" inputmode="search">
+        </div>
 
-		<!-- PHOTOS grid -->
+        <div class="links-grid" id="featuredGrid"></div>
 
-		<a href="#photos" class="lightbox" id="img-01"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-02"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/4000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-03"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x4000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-04"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-05"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/4000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-06"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x4000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-07"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-08"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/4000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-09"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x4000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-10"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-11"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/4000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-12"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x4000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-13"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-14"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/4000x3000/ddd/bbb"
-		/></a>
-		<a href="#photos" class="lightbox" id="img-15"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/3000x4000/ddd/bbb"
-		/></a>
+        <div class="more-links-container" id="moreContainer">
+            <div class="more-links-inner">
+                <div class="links-grid" id="moreGrid"></div>
+            </div>
+        </div>
 
-		<!-- Other images -->
+        <button class="toggle-btn" id="toggleBtn">
+            <span>More</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+    </div>
 
-		<a href="#about" class="lightbox" id="img-about"
-			><img
-				loading="lazy"
-				alt=""
-				src="//dummyimage.com/2400x1200/ddd/bbb"
-		/></a>
-	</body>
-	<!-- Cloudflare Web Analytics -->
-	<script
-		defer
-		src="https://static.cloudflareinsights.com/beacon.min.js"
-		data-cf-beacon='{"token": "6578bb4301f34b62bf2adc285a1e0f97", "spa": true}'
-	></script>
-	<!-- End Cloudflare Web Analytics -->
+    <script>
+        // 1. 时钟机制
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('time').textContent = 
+                String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 2. 移动端防干扰聚焦搜索
+        const searchInput = document.getElementById('searchInput');
+        const engineSelect = document.getElementById('engineSelect');
+        if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            searchInput.focus();
+        }
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+                window.location.href = engineSelect.value + encodeURIComponent(searchInput.value.trim());
+            }
+        });
+
+        // 3. 完美适配 Catppuccin 配色资产的数据集
+        const configLinks = [
+            // 前 8 个常驻首屏的网站
+            { name: 'WeChat', url: 'https://wx.qq.com', char: 'Wx', bg: 'var(--c-green)' },
+            { name: 'ChatGPT', url: 'https://chatgpt.com', char: 'AI', bg: 'var(--c-sapphire)' },
+            { name: 'Gemini', url: 'https://gemini.google.com', char: 'Gm', bg: 'var(--c-blue)' },
+            { name: 'Notion', url: 'https://www.notion.so', char: 'Nt', bg: 'var(--c-lavender)' },
+            { name: 'YouTube', url: 'https://www.youtube.com', char: 'YT', bg: 'var(--c-red)' },
+            { name: 'Bilibili', url: 'https://www.bilibili.com', char: 'Bi', bg: 'var(--c-pink)' },
+            { name: 'Telegram', url: 'https://web.telegram.org', char: 'Tg', bg: 'var(--c-maroon)' },
+            { name: 'X', url: 'https://x.com', char: 'X', bg: 'var(--c-mauve)' },
+
+            // 折叠抽屉内的快捷方式
+            { name: 'Instagram', url: 'https://www.instagram.com', char: 'In', bg: 'var(--c-pink)' },
+            { name: 'Threads', url: 'https://www.threads.net', char: 'Th', bg: 'var(--c-lavender)' },
+            { name: '小红书', url: 'https://www.xiaohongshu.com', char: 'Xhs', bg: 'var(--c-red)' },
+            { name: 'Reddit', url: 'https://www.reddit.com', char: 'Rd', bg: 'var(--c-peach)' },
+            { name: 'Discord', url: 'https://discord.com', char: 'Dc', bg: 'var(--c-blue)' },
+            { name: 'Bluesky', url: 'https://bsky.app', char: 'Bs', bg: 'var(--c-sapphire)' },
+            { name: 'Pinterest', url: 'https://www.pinterest.com', char: 'Pin', bg: 'var(--c-maroon)' },
+            { name: 'Midjourney', url: 'https://www.midjourney.com', char: 'Mj', bg: 'var(--c-mauve)' },
+            { name: 'NotionCal', url: 'https://calendar.notion.so', char: 'Nc', bg: 'var(--c-peach)' },
+            { name: 'GoogleCal', url: 'https://calendar.google.com', char: 'Cal', bg: 'var(--c-blue)' },
+            { name: 'TickTick', url: 'https://ticktick.com', char: 'Tt', bg: 'var(--c-yellow)' },
+            { name: 'Craft', url: 'https://www.craft.do', char: 'Cr', bg: 'var(--c-sapphire)' },
+            { name: 'Logseq', url: 'https://logseq.com', char: 'Ls', bg: 'var(--c-green)' },
+            { name: 'Flomo', url: 'https://flomoapp.com', char: 'Fm', bg: 'var(--c-green)' },
+            { name: 'Raycast', url: 'https://www.raycast.com', char: 'Rc', bg: 'var(--c-maroon)' },
+            { name: 'OneDrive', url: 'https://onedrive.live.com', char: 'OD', bg: 'var(--c-blue)' },
+            { name: 'Lark', url: 'https://www.feishu.cn', char: 'Lk', bg: 'var(--c-sapphire)' },
+            { name: 'Loop', url: 'https://loop.microsoft.com', char: 'Lp', bg: 'var(--c-lavender)' },
+            { name: 'Gmail', url: 'https://mail.google.com', char: 'Gm', bg: 'var(--c-red)' },
+            { name: 'Mail163', url: 'https://mail.163.com', char: 'N163', bg: 'var(--c-maroon)' },
+            { name: 'YTMusic', url: 'https://music.youtube.com', char: 'Ytm', bg: 'var(--c-red)' },
+            { name: 'Spotify', url: 'https://open.spotify.com', char: 'Sp', bg: 'var(--c-green)' },
+            { name: '小宇宙', url: 'https://www.xiaoyuzhoufm.com', char: 'Cos', bg: 'var(--c-peach)' },
+            { name: 'Behance', url: 'https://www.behance.net', char: 'Bh', bg: 'var(--c-blue)' },
+            { name: 'Slack', url: 'https://slack.com', char: 'Sl', bg: 'var(--c-mauve)' }
+        ];
+
+        // 4. 双网格动态切分渲染
+        const featuredLinks = configLinks.slice(0, 8);
+        const moreLinks = configLinks.slice(8);
+
+        const renderMapper = link => `
+            <a class="link-item" href="${link.url}" target="_blank" rel="noopener noreferrer">
+                <div class="icon-wrapper" style="background-color: ${link.bg}">${link.char}</div>
+                <div class="link-title">${link.name}</div>
+            </a>
+        `;
+
+        document.getElementById('featuredGrid').innerHTML = featuredLinks.map(renderMapper).join('');
+        document.getElementById('moreGrid').innerHTML = moreLinks.map(renderMapper).join('');
+
+        // 5. 极简流畅切换开关
+        const toggleBtn = document.getElementById('toggleBtn');
+        const moreContainer = document.getElementById('moreContainer');
+        const btnText = toggleBtn.querySelector('span');
+
+        toggleBtn.addEventListener('click', () => {
+            const isExpanded = moreContainer.classList.toggle('expanded');
+            toggleBtn.classList.toggle('expanded', isExpanded);
+            btnText.textContent = isExpanded ? 'Less' : 'More';
+        });
+    </script>
+</body>
 </html>
