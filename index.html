@@ -14,18 +14,6 @@
             --accent-color: #a6adc8;      /* Subtext0 */
             --border-color: #313244;      /* Surface0 */
             --hover-bg: #45475a;          /* Surface1 */
-            
-            /* Core Brand Colors (Catppuccin Flavors) */
-            --c-green: #a6e3a1;
-            --c-blue: #89b4fa;
-            --c-pink: #f5c2e7;
-            --c-lavender: #b4befe;
-            --c-red: #f38ba8;
-            --c-sapphire: #74c7ec;
-            --c-mauve: #cba6f7;
-            --c-peach: #fab387;
-            --c-maroon: #eba0ac;
-            --c-yellow: #f9e2af;
         }
 
         @media (prefers-color-scheme: light) {
@@ -58,7 +46,6 @@
             align-items: center;
             justify-content: center;
             
-            /* 完美的弹性留边机制，融合全面屏安全区 */
             min-height: 100vh;
             padding: calc(40px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));
             
@@ -67,13 +54,12 @@
 
         .container {
             width: 100%;
-            max-width: 620px; /* 进一步收紧宽度，增强视觉凝聚力 */
+            max-width: 600px; /* 紧凑视区 */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 32px;
-            /* 确保在大屏幕下不会顶天立地，维持四周的高级留白感 */
+            gap: 36px;
             margin: auto 0; 
         }
 
@@ -92,7 +78,7 @@
             display: flex;
             align-items: center;
             background-color: var(--input-bg);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 2px;
             border: 1px solid var(--border-color);
         }
@@ -123,25 +109,25 @@
             -webkit-appearance: none;
         }
 
-        /* 响应式精简网格 */
+        /* 响应式纯文本网格 */
         .links-grid {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
+            gap: 12px;
         }
 
         .link-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 14px 6px;
-            border-radius: 14px;
+            /* 保证移动端点击热区，同时兼顾纯文字卡片的精细度 */
+            padding: 16px 4px; 
+            border-radius: 10px;
             text-decoration: none;
             color: var(--text-color);
             background-color: var(--card-bg);
-            transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.12s ease;
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s ease;
             cursor: pointer;
             touch-action: manipulation;
             border: 1px solid var(--border-color);
@@ -149,39 +135,21 @@
 
         .link-item:hover, .link-item:active {
             background-color: var(--hover-bg);
-            transform: scale(0.95);
-        }
-
-        .icon-wrapper {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 1.15rem;
-            color: #1e1e2e; /* 浅色图标文字，在有色块上对比清晰 */
-        }
-        
-        /* 浅色模式下弱化图标内字的亮度 */
-        @media (prefers-color-scheme: light) {
-            .icon-wrapper {
-                color: #eff1f5;
-            }
+            transform: scale(0.96);
         }
 
         .link-title {
-            font-size: 0.75rem;
+            font-size: 0.82rem;
+            font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 100%;
-            opacity: 0.8;
+            max-width: 90%;
+            opacity: 0.9;
+            text-align: center;
         }
 
-        /* 高性能 CSS Grid 折叠架构 */
+        /* 抽屉结构 */
         .more-links-container {
             width: 100%;
             display: grid;
@@ -202,7 +170,7 @@
             width: 100%;
             max-width: 140px;
             padding: 10px;
-            margin: 8px auto 0 auto;
+            margin: 4px auto 0 auto;
             background: none;
             border: none;
             color: var(--accent-color);
@@ -258,7 +226,7 @@
     </div>
 
     <script>
-        // 1. 时钟机制
+        // 1. 时钟
         function updateTime() {
             const now = new Date();
             document.getElementById('time').textContent = 
@@ -267,7 +235,7 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // 2. 移动端防干扰聚焦搜索
+        // 2. 搜索
         const searchInput = document.getElementById('searchInput');
         const engineSelect = document.getElementById('engineSelect');
         if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
@@ -279,53 +247,55 @@
             }
         });
 
-        // 3. 完美适配 Catppuccin 配色资产的数据集
+        // 3. 纯文本数据集结构
         const configLinks = [
-            // 前 8 个常驻首屏的网站
-            { name: 'WeChat', url: 'https://wx.qq.com', char: 'Wx', bg: 'var(--c-green)' },
-            { name: 'ChatGPT', url: 'https://chatgpt.com', char: 'AI', bg: 'var(--c-sapphire)' },
-            { name: 'Gemini', url: 'https://gemini.google.com', char: 'Gm', bg: 'var(--c-blue)' },
-            { name: 'Notion', url: 'https://www.notion.so', char: 'Nt', bg: 'var(--c-lavender)' },
-            { name: 'YouTube', url: 'https://www.youtube.com', char: 'YT', bg: 'var(--c-red)' },
-            { name: 'Bilibili', url: 'https://www.bilibili.com', char: 'Bi', bg: 'var(--c-pink)' },
-            { name: 'Telegram', url: 'https://web.telegram.org', char: 'Tg', bg: 'var(--c-maroon)' },
-            { name: 'X', url: 'https://x.com', char: 'X', bg: 'var(--c-mauve)' },
+            // 前 8 个常驻
+            { name: 'X', url: 'https://x.com' },
+            { name: 'Grok', url: 'https://grok.com' },
+            { name: 'Threads', url: 'https://www.threads.net' },
+            { name: 'Instagram', url: 'https://www.instagram.com' },
+            { name: 'Google', url: 'https://www.google.com' },
+            { name: 'Reddit', url: 'https://www.reddit.com' },
+            { name: 'Telegram', url: 'https://web.telegram.org' },
+            { name: 'Outlook', url: 'https://outlook.live.com' },
 
-            // 折叠抽屉内的快捷方式
-            { name: 'Instagram', url: 'https://www.instagram.com', char: 'In', bg: 'var(--c-pink)' },
-            { name: 'Threads', url: 'https://www.threads.net', char: 'Th', bg: 'var(--c-lavender)' },
-            { name: '小红书', url: 'https://www.xiaohongshu.com', char: 'Xhs', bg: 'var(--c-red)' },
-            { name: 'Reddit', url: 'https://www.reddit.com', char: 'Rd', bg: 'var(--c-peach)' },
-            { name: 'Discord', url: 'https://discord.com', char: 'Dc', bg: 'var(--c-blue)' },
-            { name: 'Bluesky', url: 'https://bsky.app', char: 'Bs', bg: 'var(--c-sapphire)' },
-            { name: 'Pinterest', url: 'https://www.pinterest.com', char: 'Pin', bg: 'var(--c-maroon)' },
-            { name: 'Midjourney', url: 'https://www.midjourney.com', char: 'Mj', bg: 'var(--c-mauve)' },
-            { name: 'NotionCal', url: 'https://calendar.notion.so', char: 'Nc', bg: 'var(--c-peach)' },
-            { name: 'GoogleCal', url: 'https://calendar.google.com', char: 'Cal', bg: 'var(--c-blue)' },
-            { name: 'TickTick', url: 'https://ticktick.com', char: 'Tt', bg: 'var(--c-yellow)' },
-            { name: 'Craft', url: 'https://www.craft.do', char: 'Cr', bg: 'var(--c-sapphire)' },
-            { name: 'Logseq', url: 'https://logseq.com', char: 'Ls', bg: 'var(--c-green)' },
-            { name: 'Flomo', url: 'https://flomoapp.com', char: 'Fm', bg: 'var(--c-green)' },
-            { name: 'Raycast', url: 'https://www.raycast.com', char: 'Rc', bg: 'var(--c-maroon)' },
-            { name: 'OneDrive', url: 'https://onedrive.live.com', char: 'OD', bg: 'var(--c-blue)' },
-            { name: 'Lark', url: 'https://www.feishu.cn', char: 'Lk', bg: 'var(--c-sapphire)' },
-            { name: 'Loop', url: 'https://loop.microsoft.com', char: 'Lp', bg: 'var(--c-lavender)' },
-            { name: 'Gmail', url: 'https://mail.google.com', char: 'Gm', bg: 'var(--c-red)' },
-            { name: 'Mail163', url: 'https://mail.163.com', char: 'N163', bg: 'var(--c-maroon)' },
-            { name: 'YTMusic', url: 'https://music.youtube.com', char: 'Ytm', bg: 'var(--c-red)' },
-            { name: 'Spotify', url: 'https://open.spotify.com', char: 'Sp', bg: 'var(--c-green)' },
-            { name: '小宇宙', url: 'https://www.xiaoyuzhoufm.com', char: 'Cos', bg: 'var(--c-peach)' },
-            { name: 'Behance', url: 'https://www.behance.net', char: 'Bh', bg: 'var(--c-blue)' },
-            { name: 'Slack', url: 'https://slack.com', char: 'Sl', bg: 'var(--c-mauve)' }
+            // 其余折叠
+            { name: 'WeChat', url: 'https://wx.qq.com' },
+            { name: 'ChatGPT', url: 'https://chatgpt.com' },
+            { name: 'Gemini', url: 'https://gemini.google.com' },
+            { name: 'Notion', url: 'https://www.notion.so' },
+            { name: 'YouTube', url: 'https://www.youtube.com' },
+            { name: 'Bilibili', url: 'https://www.bilibili.com' },
+            { name: '小红书', url: 'https://www.xiaohongshu.com' },
+            { name: 'Discord', url: 'https://discord.com' },
+            { name: 'Bluesky', url: 'https://bsky.app' },
+            { name: 'Pinterest', url: 'https://www.pinterest.com' },
+            { name: 'Midjourney', url: 'https://www.midjourney.com' },
+            { name: 'NotionCal', url: 'https://calendar.notion.so' },
+            { name: 'GoogleCal', url: 'https://calendar.google.com' },
+            { name: 'TickTick', url: 'https://ticktick.com' },
+            { name: 'Craft', url: 'https://www.craft.do' },
+            { name: 'Logseq', url: 'https://logseq.com' },
+            { name: 'Flomo', url: 'https://flomoapp.com' },
+            { name: 'Raycast', url: 'https://www.raycast.com' },
+            { name: 'OneDrive', url: 'https://onedrive.live.com' },
+            { name: 'Lark', url: 'https://www.feishu.cn' },
+            { name: 'Loop', url: 'https://loop.microsoft.com' },
+            { name: 'Gmail', url: 'https://mail.google.com' },
+            { name: 'Mail163', url: 'https://mail.163.com' },
+            { name: 'YTMusic', url: 'https://music.youtube.com' },
+            { name: 'Spotify', url: 'https://open.spotify.com' },
+            { name: '小宇宙', url: 'https://www.xiaoyuzhoufm.com' },
+            { name: 'Behance', url: 'https://www.behance.net' },
+            { name: 'Slack', url: 'https://slack.com' }
         ];
 
-        // 4. 双网格动态切分渲染
+        // 4. 文本渲染
         const featuredLinks = configLinks.slice(0, 8);
         const moreLinks = configLinks.slice(8);
 
         const renderMapper = link => `
             <a class="link-item" href="${link.url}" target="_blank" rel="noopener noreferrer">
-                <div class="icon-wrapper" style="background-color: ${link.bg}">${link.char}</div>
                 <div class="link-title">${link.name}</div>
             </a>
         `;
@@ -333,7 +303,7 @@
         document.getElementById('featuredGrid').innerHTML = featuredLinks.map(renderMapper).join('');
         document.getElementById('moreGrid').innerHTML = moreLinks.map(renderMapper).join('');
 
-        // 5. 极简流畅切换开关
+        // 5. 折屉交互
         const toggleBtn = document.getElementById('toggleBtn');
         const moreContainer = document.getElementById('moreContainer');
         const btnText = toggleBtn.querySelector('span');
