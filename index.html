@@ -8,7 +8,12 @@
     <!-- DNS 预解析，加速第三方搜索引擎及页面跳转的连接速度 -->
     <link rel="dns-prefetch" href="https://www.google.com">
     <link rel="dns-prefetch" href="https://www.bing.com">
-    <link rel="dns-prefetch" href="https://www.baidu.com">
+    <link rel="dns-prefetch" href="https://duckduckgo.com">
+    <link rel="dns-prefetch" href="https://www.perplexity.ai">
+    <link rel="dns-prefetch" href="https://metaso.cn">
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="dns-prefetch" href="https://yandex.com">
+    <link rel="dns-prefetch" href="https://search.bilibili.com">
     
     <style>
         :root {
@@ -207,8 +212,17 @@
             transform: translateY(-8px);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 100;
-            min-width: 110px;
+            min-width: 140px; /* 拓宽以容纳长选项 */
+            max-height: 260px; /* 限制最大高度并支持自滚动 */
+            overflow-y: auto;
             padding: 6px;
+            scrollbar-width: none; /* 适配 Firefox */
+            -ms-overflow-style: none; /* 适配 IE/Edge */
+        }
+
+        /* 隐藏下拉框滚动条 */
+        .select-dropdown::-webkit-scrollbar {
+            display: none;
         }
 
         .custom-select.open .select-dropdown {
@@ -484,8 +498,23 @@
                     <div class="dropdown-item" data-value="https://www.bing.com/search?q=" data-name="Bing">
                         <span class="engine-icon">B</span>Bing
                     </div>
-                    <div class="dropdown-item" data-value="https://www.baidu.com/s?wd=" data-name="Baidu">
-                        <span class="engine-icon">度</span>Baidu
+                    <div class="dropdown-item" data-value="https://duckduckgo.com/?q=" data-name="DuckDuckGo">
+                        <span class="engine-icon">D</span>DuckDuckGo
+                    </div>
+                    <div class="dropdown-item" data-value="https://www.perplexity.ai/?q=" data-name="Perplexity">
+                        <span class="engine-icon">P</span>Perplexity
+                    </div>
+                    <div class="dropdown-item" data-value="https://metaso.cn/?q=" data-name="Metaso">
+                        <span class="engine-icon">M</span>秘塔AI
+                    </div>
+                    <div class="dropdown-item" data-value="https://github.com/search?q=" data-name="GitHub">
+                        <span class="engine-icon">H</span>GitHub
+                    </div>
+                    <div class="dropdown-item" data-value="https://yandex.com/search/?text=" data-name="Yandex">
+                        <span class="engine-icon">Y</span>Yandex
+                    </div>
+                    <div class="dropdown-item" data-value="https://search.bilibili.com/all?keyword=" data-name="Bilibili">
+                        <span class="engine-icon">哔</span>Bilibili
                     </div>
                 </div>
             </div>
