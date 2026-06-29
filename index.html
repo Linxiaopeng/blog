@@ -450,6 +450,60 @@
             transform: rotate(180deg);
         }
 
+        /* 移动端与手机窄屏响应式适配 */
+        @media (max-width: 500px) {
+            .container {
+                gap: 28px; /* 移动端减少间距，更加紧凑实用 */
+            }
+            
+            #time {
+                font-size: clamp(3.4rem, 16vw, 4.5rem); /* 时钟大字根据屏幕宽度动态流体缩放，最高 4.5rem */
+            }
+            
+            .greeting {
+                font-size: 1.25rem;
+            }
+            
+            .search-box:focus-within {
+                max-width: 100%; /* 移动端聚焦时不超宽，撑满即可 */
+            }
+            
+            .select-trigger {
+                padding: 0 10px 0 16px; /* 缩减左侧搜索引擎的内边距，留给打字区域 */
+                font-size: 0.8rem;
+            }
+            
+            .search-input {
+                font-size: 0.9rem;
+                padding: 0 12px 0 8px;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(3, 1fr); /* 手机上改用 3 列网格，避免 4 列导致文字缩挤和换行 */
+                gap: 10px;
+            }
+            
+            .link-item {
+                padding: 14px 4px; /* 缩减卡片内边距 */
+            }
+            
+            .link-title {
+                font-size: 0.8rem; /* 稍微缩小链接文字 */
+            }
+
+            .toggle-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* 极窄屏手机适配 (iPhone SE 等 <= 360px 宽度) */
+        @media (max-width: 360px) {
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr); /* 极窄屏改用 2 列网格 */
+            }
+        }
+
         /* 极速动画定义（缩短持续时间，并启用 transform 加速） */
         @keyframes fadeInDown {
             from {
