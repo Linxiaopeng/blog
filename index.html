@@ -4,28 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Start</title>
+    
+    <!-- DNS 预解析，加速第三方搜索引擎及页面跳转的连接速度 -->
+    <link rel="dns-prefetch" href="https://www.google.com">
+    <link rel="dns-prefetch" href="https://www.bing.com">
+    <link rel="dns-prefetch" href="https://www.baidu.com">
+    
     <style>
         :root {
-            /* Catppuccin Mocha Palette */
-            --bg-color: #1e1e2e;          /* Base */
-            --card-bg: #252538;           /* Mantle */
-            --input-bg: #181825;          /* Crust */
-            --text-color: #cdd6f4;        /* Text */
-            --accent-color: #a6adc8;      /* Subtext0 */
-            --border-color: #313244;      /* Surface0 */
-            --hover-bg: #45475a;          /* Surface1 */
+            /* Claude 官方社论温暖浅色调 */
+            --bg-color: #f9f6f0;           /* Claude 羊皮纸米白 */
+            --bg-gradient: radial-gradient(circle at top, rgba(204, 107, 73, 0.08) 0%, rgba(249, 246, 240, 0) 60%);
+            --card-bg: #f2ede2;            /* 温暖纸张卡片底色 */
+            --input-bg: #ffffff;           /* 纯白输入框区 */
+            --text-color: #191919;         /* 深炭黑色 */
+            --accent-color: #7a7265;       /* 经典灰褐暖灰 */
+            --border-color: #e3dac9;       /* 极雅致暖色描边 */
+            --hover-bg: #eae3d2;           /* Hover 时的柔和暖灰 */
+            --accent-clay: #cc6b49;        /* 亮色模式标志性温暖赤陶红 */
+            --accent-clay-light: rgba(204, 107, 73, 0.08);
+            --shadow-color: rgba(90, 70, 50, 0.03);
+            
+            --font-serif: "Charter", "Georgia", "Cambria", serif; /* 优雅人文衬线体 */
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* 现代系统无衬线体 */
+            --font-clock: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 默认且几何对称的时钟字体 */
         }
 
-        @media (prefers-color-scheme: light) {
+        @media (prefers-color-scheme: dark) {
             :root {
-                /* Catppuccin Latte Palette */
-                --bg-color: #eff1f5;      /* Base */
-                --card-bg: #e6e9ef;       /* Mantle */
-                --input-bg: #dce0e8;      /* Crust */
-                --text-color: #4c4f69;    /* Text */
-                --accent-color: #6c6f85;  /* Subtext0 */
-                --border-color: #ccd0da;  /* Surface0 */
-                --hover-bg: #acb0be;      /* Surface1 */
+                /* Claude 官方社论浓郁暗褐色 */
+                --bg-color: #181614;       /* 黑巧克力深墨黑 */
+                --bg-gradient: radial-gradient(circle at top, rgba(224, 159, 128, 0.1) 0%, rgba(24, 22, 20, 0) 60%);
+                --card-bg: #211e1c;        /* 巧克力暗色卡片 */
+                --input-bg: #1c1917;       /* 输入区域更暗褐 */
+                --text-color: #f5efe6;     /* 温暖奶油白 */
+                --accent-color: #9c928c;   /* 柔和的褐灰 */
+                --border-color: #302b28;   /* 极暗的咖啡边框 */
+                --hover-bg: #282422;       /* Hover 暗卡片色 */
+                --accent-clay: #e09f80;    /* 暗色模式温润淡赤陶橙 */
+                --accent-clay-light: rgba(224, 159, 128, 0.12);
+                --shadow-color: rgba(0, 0, 0, 0.35);
             }
         }
 
@@ -38,10 +56,11 @@
 
         body {
             background-color: var(--bg-color);
+            background-image: var(--bg-gradient);
             color: var(--text-color);
-            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-family: var(--font-sans);
             
-            /* 绝对居中引擎 */
+            /* 居中引擎布局 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -49,51 +68,190 @@
             min-height: 100vh;
             padding: calc(40px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));
             
-            transition: background-color 0.2s, color 0.2s;
+            transition: background-color 0.4s, color 0.4s;
+            overflow-x: hidden;
+            
+            /* 消除右侧滚动条（但保留丝滑的上下滚动功能） */
+            scrollbar-width: none; /* 适配 Firefox */
+            -ms-overflow-style: none; /* 适配 IE/Edge */
+        }
+
+        /* 适配 Chrome, Safari 及 WebKit 内核浏览器 */
+        body::-webkit-scrollbar {
+            display: none;
         }
 
         .container {
             width: 100%;
-            max-width: 600px; /* 紧凑视区 */
+            max-width: 580px; /* 精简版心 */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 36px;
+            gap: 40px;
             margin: auto 0; 
         }
 
-        #time {
-            font-size: 3.8rem;
-            font-weight: 300;
-            letter-spacing: -1px;
-            color: var(--text-color);
+        /* 顶部社论感卡片 */
+        .editorial-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
             user-select: none;
-            opacity: 0.95;
+            will-change: transform, opacity;
         }
 
+        .greeting {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.45rem;
+            font-weight: 400;
+            color: var(--accent-color);
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            animation: fadeInDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        #time {
+            font-family: var(--font-clock);
+            font-size: 5.6rem;
+            font-weight: 300;
+            letter-spacing: -1.5px;
+            color: var(--text-color);
+            line-height: 1;
+            animation: fadeInDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+        }
+
+        .date-line {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            opacity: 0.8;
+            margin-top: 4px;
+            animation: fadeInDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+
+        /* 搜索区域 */
         .search-box {
+            position: relative;
+            z-index: 10;
             width: 100%;
-            max-width: 480px;
+            max-width: 460px;
             display: flex;
             align-items: center;
             background-color: var(--input-bg);
-            border-radius: 12px;
+            border-radius: 99px;
             padding: 2px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+            will-change: transform, opacity, max-width;
         }
 
-        .search-select {
-            background: none;
-            border: none;
+        .search-box:focus-within {
+            border-color: var(--accent-clay);
+            box-shadow: 0 0 0 3px var(--accent-clay-light), 0 12px 40px var(--shadow-color);
+            max-width: 500px;
+        }
+
+        /* 高级自定义下拉选择器 */
+        .custom-select {
+            position: relative;
+            user-select: none;
+        }
+
+        .select-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 16px 0 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--accent-color);
-            padding: 0 16px;
-            font-size: 0.9rem;
-            font-family: inherit;
             cursor: pointer;
-            outline: none;
             height: 44px;
-            -webkit-appearance: none;
+            border-right: 1px solid var(--border-color);
+            transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .select-trigger:hover {
+            color: var(--accent-clay);
+        }
+
+        .arrow-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .custom-select.open .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            min-width: 110px;
+            padding: 6px;
+        }
+
+        .custom-select.open .select-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--accent-clay-light);
+            color: var(--accent-clay);
+        }
+
+        .engine-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover .engine-icon {
+            background-color: var(--accent-clay);
+            color: var(--bg-color);
         }
 
         .search-input {
@@ -103,58 +261,114 @@
             border: none;
             outline: none;
             color: var(--text-color);
-            font-size: 1rem;
-            font-family: inherit;
-            padding: 0 14px;
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            padding: 0 20px 0 16px;
             -webkit-appearance: none;
         }
 
-        /* 响应式纯文本网格 */
+        .search-input::placeholder {
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+
+        /* 静态渲染链接网格 */
         .links-grid {
+            position: relative;
+            z-index: 1;
             width: 100%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 14px;
+            animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            will-change: transform, opacity;
         }
 
         .link-item {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 保证移动端点击热区，同时兼顾纯文字卡片的精细度 */
-            padding: 16px 4px; 
-            border-radius: 10px;
+            padding: 16px 8px; 
+            border-radius: 8px;
             text-decoration: none;
             color: var(--text-color);
             background-color: var(--card-bg);
-            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             touch-action: manipulation;
-            border: 1px solid var(--border-color);
+            will-change: transform, box-shadow, border-color, background-color;
         }
 
-        .link-item:hover, .link-item:active {
-            background-color: var(--hover-bg);
-            transform: scale(0.96);
+        .link-item:hover {
+            background-color: var(--input-bg);
+            border-color: var(--accent-clay);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow-color), 0 2px 8px var(--accent-clay-light);
+        }
+
+        /* 键盘快捷键提示小角标 */
+        .shortcut-badge {
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            color: var(--accent-color);
+            opacity: 0.22;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .link-item:hover .shortcut-badge {
+            opacity: 0.8;
+            color: var(--accent-clay);
         }
 
         .link-title {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 500;
+            font-family: var(--font-sans);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 90%;
             opacity: 0.9;
             text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
         }
 
-        /* 抽屉结构 */
+        .link-item:hover .link-title {
+            color: var(--accent-clay);
+            opacity: 1;
+        }
+
+        /* 东北向小箭头 ↗ */
+        .link-arrow {
+            font-size: 0.72rem;
+            color: var(--accent-color);
+            opacity: 0;
+            transform: translate(-2px, 2px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .link-item:hover .link-arrow {
+            opacity: 0.9;
+            color: var(--accent-clay);
+            transform: translate(0, 0);
+        }
+
+        /* 折叠抽屉结构 */
         .more-links-container {
             width: 100%;
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
         }
 
@@ -166,144 +380,329 @@
             min-height: 0;
         }
 
+        /* 抽屉打开时，链接卡片多米诺级连淡入 */
+        .more-links-container .link-item {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .more-links-container.expanded .link-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .toggle-btn {
             width: 100%;
-            max-width: 140px;
-            padding: 10px;
-            margin: 4px auto 0 auto;
-            background: none;
-            border: none;
+            max-width: 120px;
+            padding: 8px 16px;
+            margin: 8px auto 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 99px;
             color: var(--accent-color);
             font-size: 0.8rem;
-            font-family: inherit;
+            font-family: var(--font-sans);
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 6px;
             outline: none;
             touch-action: manipulation;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+            will-change: transform, opacity;
+        }
+
+        .toggle-btn:hover {
+            background: var(--input-bg);
+            color: var(--accent-clay);
+            border-color: var(--accent-clay);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
 
         .toggle-icon {
             width: 10px;
             height: 10px;
             fill: currentColor;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .expanded .toggle-icon {
             transform: rotate(180deg);
+        }
+
+        /* 极速动画定义（缩短持续时间，并启用 transform 加速） */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -10px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 10px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div id="time">00:00</div>
+        <!-- 社论感头部 -->
+        <div class="editorial-header">
+            <span class="greeting" id="greeting">Good afternoon</span>
+            <div id="time">00:00</div>
+            <span class="date-line" id="date">Date Loading...</span>
+        </div>
 
+        <!-- 引擎可切换式搜索框 -->
         <div class="search-box">
-            <select class="search-select" id="engineSelect">
-                <option value="https://www.google.com/search?q=">Ggl</option>
-                <option value="https://www.bing.com/search?q=">Bng</option>
-                <option value="https://www.baidu.com/s?wd=">Bdu</option>
-            </select>
+            <div class="custom-select" id="engineSelector">
+                <div class="select-trigger" id="engineTrigger">
+                    <span id="selectedEngineName">Google</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"></path></svg>
+                </div>
+                <div class="select-dropdown" id="engineDropdown">
+                    <div class="dropdown-item" data-value="https://www.google.com/search?q=" data-name="Google">
+                        <span class="engine-icon">G</span>Google
+                    </div>
+                    <div class="dropdown-item" data-value="https://www.bing.com/search?q=" data-name="Bing">
+                        <span class="engine-icon">B</span>Bing
+                    </div>
+                    <div class="dropdown-item" data-value="https://www.baidu.com/s?wd=" data-name="Baidu">
+                        <span class="engine-icon">度</span>Baidu
+                    </div>
+                </div>
+            </div>
             <input type="text" class="search-input" id="searchInput" placeholder="Search..." autocomplete="off" inputmode="search">
         </div>
 
-        <div class="links-grid" id="featuredGrid"></div>
+        <!-- 静态直染精选链接（避免 JavaScript DOM 操作引发的白屏与渲染阻塞） -->
+        <div class="links-grid" id="featuredGrid">
+            <a class="link-item" href="https://x.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.20s;">
+                <span class="shortcut-badge">1</span>
+                <div class="link-title">X<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://grok.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.23s;">
+                <span class="shortcut-badge">2</span>
+                <div class="link-title">Grok<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://www.threads.net" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.26s;">
+                <span class="shortcut-badge">3</span>
+                <div class="link-title">Threads<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.29s;">
+                <span class="shortcut-badge">4</span>
+                <div class="link-title">Instagram<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://www.google.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.32s;">
+                <span class="shortcut-badge">5</span>
+                <div class="link-title">Google<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://www.reddit.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.35s;">
+                <span class="shortcut-badge">6</span>
+                <div class="link-title">Reddit<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://web.telegram.org" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.38s;">
+                <span class="shortcut-badge">7</span>
+                <div class="link-title">Telegram<span class="link-arrow">↗</span></div>
+            </a>
+            <a class="link-item" href="https://outlook.live.com" target="_blank" rel="noopener noreferrer" style="animation-delay: 0.41s;">
+                <span class="shortcut-badge">8</span>
+                <div class="link-title">Outlook<span class="link-arrow">↗</span></div>
+            </a>
+        </div>
 
+        <!-- 静态直染折叠链接（预设过渡多米诺级连延迟） -->
         <div class="more-links-container" id="moreContainer">
             <div class="more-links-inner">
-                <div class="links-grid" id="moreGrid"></div>
+                <div class="links-grid" id="moreGrid" style="margin-top: 14px; animation: none;">
+                    <a class="link-item" href="https://wx.qq.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 0ms;">
+                        <div class="link-title">WeChat<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 12ms;">
+                        <div class="link-title">ChatGPT<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 24ms;">
+                        <div class="link-title">Gemini<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.notion.so" target="_blank" rel="noopener noreferrer" style="transition-delay: 36ms;">
+                        <div class="link-title">Notion<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 48ms;">
+                        <div class="link-title">YouTube<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.bilibili.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 60ms;">
+                        <div class="link-title">Bilibili<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.xiaohongshu.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 72ms;">
+                        <div class="link-title">小红书<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://discord.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 84ms;">
+                        <div class="link-title">Discord<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://bsky.app" target="_blank" rel="noopener noreferrer" style="transition-delay: 96ms;">
+                        <div class="link-title">Bluesky<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.pinterest.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 108ms;">
+                        <div class="link-title">Pinterest<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 120ms;">
+                        <div class="link-title">Midjourney<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://calendar.notion.so" target="_blank" rel="noopener noreferrer" style="transition-delay: 132ms;">
+                        <div class="link-title">NotionCal<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://calendar.google.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 144ms;">
+                        <div class="link-title">GoogleCal<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://ticktick.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 156ms;">
+                        <div class="link-title">TickTick<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.craft.do" target="_blank" rel="noopener noreferrer" style="transition-delay: 168ms;">
+                        <div class="link-title">Craft<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://logseq.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 180ms;">
+                        <div class="link-title">Logseq<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://flomoapp.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 192ms;">
+                        <div class="link-title">Flomo<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.raycast.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 204ms;">
+                        <div class="link-title">Raycast<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://onedrive.live.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 216ms;">
+                        <div class="link-title">OneDrive<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.feishu.cn" target="_blank" rel="noopener noreferrer" style="transition-delay: 228ms;">
+                        <div class="link-title">Lark<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://loop.microsoft.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 240ms;">
+                        <div class="link-title">Loop<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://mail.google.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 252ms;">
+                        <div class="link-title">Gmail<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://mail.163.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 264ms;">
+                        <div class="link-title">Mail163<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://music.youtube.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 276ms;">
+                        <div class="link-title">YTMusic<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 288ms;">
+                        <div class="link-title">Spotify<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.xiaoyuzhoufm.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 300ms;">
+                        <div class="link-title">小宇宙<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://www.behance.net" target="_blank" rel="noopener noreferrer" style="transition-delay: 312ms;">
+                        <div class="link-title">Behance<span class="link-arrow">↗</span></div>
+                    </a>
+                    <a class="link-item" href="https://slack.com" target="_blank" rel="noopener noreferrer" style="transition-delay: 324ms;">
+                        <div class="link-title">Slack<span class="link-arrow">↗</span></div>
+                    </a>
+                </div>
             </div>
         </div>
 
+        <!-- 展开按钮 -->
         <button class="toggle-btn" id="toggleBtn">
             <span>More</span>
-            <svg class="toggle-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            <svg class="toggle-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg>
         </button>
     </div>
 
     <script>
-        // 1. 时钟
+        // 1. 动态更新问候语和日期
+        function updateGreetingAndDate() {
+            const now = new Date();
+            const hours = now.getHours();
+            let greetingText = "Good evening";
+            
+            if (hours >= 5 && hours < 12) {
+                greetingText = "Good morning";
+            } else if (hours >= 12 && hours < 18) {
+                greetingText = "Good afternoon";
+            }
+            
+            document.getElementById('greeting').textContent = greetingText;
+
+            // 格式化日期：例如 "Monday, June 29"
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // 2. 动态更新时钟
         function updateTime() {
             const now = new Date();
             document.getElementById('time').textContent = 
                 String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+            updateGreetingAndDate();
         }
         setInterval(updateTime, 1000);
         updateTime();
 
-        // 2. 搜索
+        // 3. 自定义搜索引擎切换逻辑
+        let currentEngineUrl = "https://www.google.com/search?q=";
+        const engineSelector = document.getElementById('engineSelector');
+        const engineTrigger = document.getElementById('engineTrigger');
+        const selectedEngineName = document.getElementById('selectedEngineName');
         const searchInput = document.getElementById('searchInput');
-        const engineSelect = document.getElementById('engineSelect');
-        if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            searchInput.focus();
-        }
+
+        searchInput.placeholder = "Search with Google...";
+
+        // 引擎切换下拉开关
+        engineTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            engineSelector.classList.toggle('open');
+        });
+
+        // 选项点击事件
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const val = item.getAttribute('data-value');
+                const name = item.getAttribute('data-name');
+                currentEngineUrl = val;
+                selectedEngineName.textContent = name;
+                searchInput.placeholder = `Search with ${name}...`;
+                engineSelector.classList.remove('open');
+                searchInput.focus();
+            });
+        });
+
+        // 点击空白关闭下拉框
+        document.addEventListener('click', () => {
+            engineSelector.classList.remove('open');
+        });
+
+        // 按 Enter 执行搜索
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && searchInput.value.trim() !== '') {
-                window.location.href = engineSelect.value + encodeURIComponent(searchInput.value.trim());
+                window.location.href = currentEngineUrl + encodeURIComponent(searchInput.value.trim());
             }
         });
 
-        // 3. 纯文本数据集结构
-        const configLinks = [
-            // 前 8 个常驻
-            { name: 'X', url: 'https://x.com' },
-            { name: 'Grok', url: 'https://grok.com' },
-            { name: 'Threads', url: 'https://www.threads.net' },
-            { name: 'Instagram', url: 'https://www.instagram.com' },
-            { name: 'Google', url: 'https://www.google.com' },
-            { name: 'Reddit', url: 'https://www.reddit.com' },
-            { name: 'Telegram', url: 'https://web.telegram.org' },
-            { name: 'Outlook', url: 'https://outlook.live.com' },
+        // 非移动端自动聚焦输入框
+        if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            searchInput.focus();
+        }
 
-            // 其余折叠
-            { name: 'WeChat', url: 'https://wx.qq.com' },
-            { name: 'ChatGPT', url: 'https://chatgpt.com' },
-            { name: 'Gemini', url: 'https://gemini.google.com' },
-            { name: 'Notion', url: 'https://www.notion.so' },
-            { name: 'YouTube', url: 'https://www.youtube.com' },
-            { name: 'Bilibili', url: 'https://www.bilibili.com' },
-            { name: '小红书', url: 'https://www.xiaohongshu.com' },
-            { name: 'Discord', url: 'https://discord.com' },
-            { name: 'Bluesky', url: 'https://bsky.app' },
-            { name: 'Pinterest', url: 'https://www.pinterest.com' },
-            { name: 'Midjourney', url: 'https://www.midjourney.com' },
-            { name: 'NotionCal', url: 'https://calendar.notion.so' },
-            { name: 'GoogleCal', url: 'https://calendar.google.com' },
-            { name: 'TickTick', url: 'https://ticktick.com' },
-            { name: 'Craft', url: 'https://www.craft.do' },
-            { name: 'Logseq', url: 'https://logseq.com' },
-            { name: 'Flomo', url: 'https://flomoapp.com' },
-            { name: 'Raycast', url: 'https://www.raycast.com' },
-            { name: 'OneDrive', url: 'https://onedrive.live.com' },
-            { name: 'Lark', url: 'https://www.feishu.cn' },
-            { name: 'Loop', url: 'https://loop.microsoft.com' },
-            { name: 'Gmail', url: 'https://mail.google.com' },
-            { name: 'Mail163', url: 'https://mail.163.com' },
-            { name: 'YTMusic', url: 'https://music.youtube.com' },
-            { name: 'Spotify', url: 'https://open.spotify.com' },
-            { name: '小宇宙', url: 'https://www.xiaoyuzhoufm.com' },
-            { name: 'Behance', url: 'https://www.behance.net' },
-            { name: 'Slack', url: 'https://slack.com' }
-        ];
-
-        // 4. 文本渲染
-        const featuredLinks = configLinks.slice(0, 8);
-        const moreLinks = configLinks.slice(8);
-
-        const renderMapper = link => `
-            <a class="link-item" href="${link.url}" target="_blank" rel="noopener noreferrer">
-                <div class="link-title">${link.name}</div>
-            </a>
-        `;
-
-        document.getElementById('featuredGrid').innerHTML = featuredLinks.map(renderMapper).join('');
-        document.getElementById('moreGrid').innerHTML = moreLinks.map(renderMapper).join('');
-
-        // 5. 折屉交互
+        // 4. 折叠抽屉控制
         const toggleBtn = document.getElementById('toggleBtn');
         const moreContainer = document.getElementById('moreContainer');
         const btnText = toggleBtn.querySelector('span');
@@ -312,6 +711,41 @@
             const isExpanded = moreContainer.classList.toggle('expanded');
             toggleBtn.classList.toggle('expanded', isExpanded);
             btnText.textContent = isExpanded ? 'Less' : 'More';
+        });
+
+        // 5. 键盘快捷导航系统 (直读硬编码配置提升性能)
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement === searchInput) {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    searchInput.blur();
+                }
+                return;
+            }
+
+            if (e.key === '/') {
+                e.preventDefault();
+                searchInput.focus();
+                return;
+            }
+
+            if (e.key >= '1' && e.key <= '8') {
+                const featuredUrls = [
+                    'https://x.com',
+                    'https://grok.com',
+                    'https://www.threads.net',
+                    'https://www.instagram.com',
+                    'https://www.google.com',
+                    'https://www.reddit.com',
+                    'https://web.telegram.org',
+                    'https://outlook.live.com'
+                ];
+                const index = parseInt(e.key) - 1;
+                if (index < featuredUrls.length) {
+                    e.preventDefault();
+                    window.open(featuredUrls[index], '_blank', 'noopener,noreferrer');
+                }
+            }
         });
     </script>
 </body>
