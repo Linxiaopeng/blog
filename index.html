@@ -75,29 +75,38 @@
       max-width: 820px;
     }
 
-    /* Top Bar */
+    /* Top Bar & Centered Apple Clock */
     .top-bar {
+      position: relative;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 22px;
+      margin-top: 14px;
+      margin-bottom: 34px;
       padding: 0 4px;
     }
 
     .clock {
-      font-size: 32px;
-      font-weight: 300;
-      letter-spacing: -0.03em;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", "SF Pro Text", system-ui, sans-serif;
+      font-size: clamp(48px, 12vw, 68px);
+      font-weight: 280;
+      letter-spacing: -0.035em;
       font-variant-numeric: tabular-nums;
       line-height: 1;
       color: var(--text);
+      text-align: center;
+      user-select: none;
     }
 
     .theme-btn {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
       background: var(--search-bg);
       border: 0.5px solid var(--search-border);
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       color: var(--text-sec);
@@ -111,12 +120,13 @@
 
     .theme-btn:hover {
       color: var(--text);
-      transform: scale(1.05);
+      transform: translateY(-50%) scale(1.06);
     }
 
     /* Safari-style Search Pill */
     .search-wrap {
-      margin-bottom: 28px;
+      max-width: 580px;
+      margin: 0 auto 36px;
     }
 
     .search-pill {
@@ -203,13 +213,14 @@
     /* Mobile: 4 equal columns */
     @media (max-width: 480px) {
       .top-bar {
-        margin-bottom: 16px;
+        margin-top: 8px;
+        margin-bottom: 26px;
       }
       .clock {
-        font-size: 28px;
+        font-size: 46px;
       }
       .search-wrap {
-        margin-bottom: 20px;
+        margin-bottom: 26px;
       }
       .grid {
         grid-template-columns: repeat(4, 1fr);
